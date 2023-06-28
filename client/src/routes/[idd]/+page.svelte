@@ -1,6 +1,6 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import AnimeComponent from "../AnimeComponent.svelte";
+    import AnimeComponent from "../../components/AnimeComponent.svelte";
     import type { PageData } from "./$types";
 
     export let data: PageData;
