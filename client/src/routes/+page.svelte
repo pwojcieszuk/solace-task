@@ -6,12 +6,11 @@
 </script>
 
 {#each data.recommended.data as recommendation}
-    <div class="grid grid-cols-2 border border-gray-800 rounded mb-4">
-        <h1 class="col-span-2 p-2 border-b border-gray-800">
-            {recommendation.content}
-        </h1>
+    <div
+        class="grid grid-cols-2 m-4 p-4 bg-yellow-300/90 max-w-[30rem] min-w-[20rem] slanted-corners"
+    >
         {#each recommendation.entry as subRecommendation}
-            <div class="p-2 text-xl font-bold mb-2">
+            <div class="p-2 text-xl font-bold">
                 <AnimeComponent
                     title={subRecommendation.title}
                     mal_id={subRecommendation.mal_id}
@@ -19,5 +18,9 @@
                 />
             </div>
         {/each}
+
+        <p class="col-span-2 p-2">
+            {recommendation.content}
+        </p>
     </div>
 {/each}

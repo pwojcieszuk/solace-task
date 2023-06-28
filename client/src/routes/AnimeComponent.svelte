@@ -4,14 +4,13 @@
     export let image: string;
 </script>
 
-<h1>{title}</h1>
-
 <a href="/{mal_id}">
     <img
-        class="hover:opacity-50 hover:cursor-pointer"
+        class="hover:opacity-50 hover:cursor-pointer mx-auto"
         src={image}
         alt={title}
         height="200px"
         width="200px"
     />
 </a>
+<h1>{title}</h1>
