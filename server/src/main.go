@@ -5,16 +5,18 @@ import (
 	"net/http"
 )
 
-type server struct{}
-
-func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/html; charset=utf-8")
-        w.WriteHeader(http.StatusOK)
-    w.Write([]byte(`ok`))
+func health(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	if r.Method == "GET" {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	} else {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`{"message": "not found"}`))
+	}
 }
 
 func main() {
-    s := &server{}
-    http.Handle("/health", s)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/", health)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
