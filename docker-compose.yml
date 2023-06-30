@@ -15,10 +15,11 @@ services:
   server:
     container_name: task-server
     build:
-      context: ./pocketbase
-    working_dir: /pb
+      context: ./server
+      dockerfile: Dockerfile
+    working_dir: /app
     volumes:
-      - ./pocketbase/pb_data:/pb/pb_data
-      - ./pocketbase/pb_migrations:/pb/pb_migrations
+      - ./server/src:/app
     ports:
       - 8080:8080
+    command: air ./main.go -b 0.0.0.0:8080
