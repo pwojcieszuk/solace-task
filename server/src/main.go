@@ -19,9 +19,6 @@ func health(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// TODO route for storibng favorites in format (ts) MAp<number, {title: string, image: string}>
-// favorites.set(mal_id, { title: title, image: image });
-
 func main() {
 	database.ConnectDb()
 	app := fiber.New()
