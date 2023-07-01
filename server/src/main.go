@@ -1,29 +1,37 @@
 package main
 
 import (
-	"net/http"
 	"os"
 	"server/database"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func health(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if r.Method == "GET" {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
-	} else {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(`{"message": "not found"}`))
-	}
+type AppHandler interface {
+	SetupRoutes(app *fiber.App)
+	InitDb()
+}
+
+type AppHandlerStruct struct{}
+
+func (a *AppHandlerStruct) SetupRoutes(app *fiber.App) {
+	setupRoutes(app)
+}
+
+func (a *AppHandlerStruct) InitDb() {
+	database.ConnectDb()
+}
+
+func CreateApp(handler AppHandler) *fiber.App {
+	app := fiber.New()
+	handler.SetupRoutes(app)
+	handler.InitDb()
+	return app
 }
 
 func main() {
-	database.ConnectDb()
-	app := fiber.New()
+	app := CreateApp(&AppHandlerStruct{})
 	port := os.Getenv("PORT")
-	setupRoutes(app)
 
 	app.Listen(":" + port)
 }
