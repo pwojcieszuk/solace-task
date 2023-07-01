@@ -1,8 +1,11 @@
 package main
 
 import (
-	"log"
 	"net/http"
+	"os"
+	"server/database"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func health(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +19,14 @@ func health(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// TODO route for storibng favorites in format (ts) MAp<number, {title: string, image: string}>
+// favorites.set(mal_id, { title: title, image: image });
+
 func main() {
-	http.HandleFunc("/", health)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	database.ConnectDb()
+	app := fiber.New()
+	port := os.Getenv("PORT")
+	setupRoutes(app)
+
+	app.Listen(":" + port)
 }
