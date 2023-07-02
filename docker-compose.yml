@@ -2,6 +2,8 @@ version: "3"
 services:
   client:
     container_name: task-client
+    env_file:
+      - .env
     build:
       context: ./client
     working_dir: /app
@@ -24,7 +26,11 @@ services:
       - ./server/src:/app
     ports:
       - 8080:8080
+    expose:
+      - 8080
     command: air ./main.go -b 0.0.0.0
+    depends_on:
+      - db
   db:
     image: postgres:alpine
     env_file:

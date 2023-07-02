@@ -2,6 +2,11 @@
     import "../app.css";
     import FavoritesComponent from "../components/FavoritesComponent.svelte";
     import { favorites } from "../stores";
+
+    export let data: {
+        favorites: Map<number, { title: string; image: string }>;
+    };
+    favorites.set(data.favorites);
 </script>
 
 <div class="bg-hive-pattern bg-cover h-screen overflow-hidden">
