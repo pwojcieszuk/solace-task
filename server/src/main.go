@@ -5,6 +5,7 @@ import (
 	"server/database"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 type AppHandler interface {
@@ -24,6 +25,7 @@ func (a *AppHandlerStruct) InitDb() {
 
 func CreateApp(handler AppHandler) *fiber.App {
 	app := fiber.New()
+	app.Use(cors.New())
 	handler.SetupRoutes(app)
 	handler.InitDb()
 	return app
@@ -31,7 +33,7 @@ func CreateApp(handler AppHandler) *fiber.App {
 
 func main() {
 	app := CreateApp(&AppHandlerStruct{})
-	port := os.Getenv("PORT")
+	port := os.Getenv("SERVER_PORT")
 
 	app.Listen(":" + port)
 }
