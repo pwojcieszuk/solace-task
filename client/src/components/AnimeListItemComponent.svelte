@@ -1,7 +1,18 @@
 <script lang="ts">
     import AnimeComponent from "./AnimeComponent.svelte";
     import FavoritesToggleComponent from "./FavoritesToggleComponent.svelte";
-    export let recommendation: any;
+    export let recommendation: {
+        content: string;
+        entry: {
+            mal_id: number;
+            title: string;
+            images: {
+                webp: {
+                    image_url: string;
+                };
+            };
+        }[];
+    };
 </script>
 
 <div

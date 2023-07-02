@@ -4,7 +4,7 @@
     import FavoritesToggleComponent from "./FavoritesToggleComponent.svelte";
     import { fly } from "svelte/transition";
 
-    export let favorites: LayoutData["favorites"];
+    export let favorites: Map<number, { title: string; image: string }>;
 
     let visible = true;
 
@@ -16,6 +16,7 @@
 <button
     class="bg-gray-300 rounded-r-lg fixed w-[1rem] h-[4rem] left-0 top-[50%] translate-y-[-50%]"
     on:click={toggle}
+    style="z-index: 1"
     title="Toggle favorites"
 >
     {#if visible}
@@ -32,7 +33,7 @@
         transition:fly={{ x: -300, duration: 1000 }}
     >
         {#each [...favorites] as [key, value]}
-            <div class="relative">
+            <div class="relative z-0">
                 <FavoritesToggleComponent
                     title={value.title}
                     mal_id={key}
