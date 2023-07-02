@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .slanted-corners {
+        clip-path: polygon(
+            1.5rem 0,
+            calc(100% - 1.5rem) 0%,
+            100% 1.5rem,
+            100% calc(100% - 1.5rem),
+            calc(100% - 1.5rem) 100%,
+            1.5rem 100%,
+            0% calc(100% - 1.5rem),
+            0% 1.5rem
+        );
+    }
+
+    .bg-circle > * {
+        display: block;
+        clip-path: circle(35% at center);
+    }
+}
